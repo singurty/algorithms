@@ -3,11 +3,11 @@
 #include <string.h>
 
 struct {
-	char* stack;
-	char* top;
+	int* stack;
+	int* top;
 } stack;
 
-void push(char value) {
+void push(int value) {
 	*stack.top = value;
 	stack.top++;
 }
@@ -27,11 +27,12 @@ int main(int argc, const char* argv[]) {
 	// iterate though the string
 	for (int i = 0; i < strlen(argv[1]); i++) {
 		if (argv[1][i] == '(') {
-			push('(');
+			push(i);
 		} else if (argv[1][i] == ')') {
 			// no matching opening parenthesis
 			if (stack.top == stack.stack) {
 				printf("false\n");
+				printf("offending parenthesis at %d\n", i);
 				exit(0);
 			}
 			pop();
@@ -42,5 +43,6 @@ int main(int argc, const char* argv[]) {
 		printf("true\n");
 	} else {
 		printf("false\n");
+		printf("offending parenthesis at %d\n", stack.top[-1]);
 	}
 }
