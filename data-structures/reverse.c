@@ -44,6 +44,7 @@ void reverse() {
 	}
 	// mark the end
 	pointers[0]->next = NULL;
+	free(pointers);
 }
 
 int main() {
