@@ -8,7 +8,7 @@ typedef struct list {
 	struct list *next;
 } list;
 
-list *head;
+list *head = NULL;
 
 void insert(int item) {
 	list *p;
@@ -27,7 +27,7 @@ void printList() {
 }
 
 void reverse() {
-	list** pointers = malloc(LENGTH);
+	list **pointers = malloc(LENGTH);
 	list *l = head;
 	// get pointers of all nodes
 	pointers[0] = head;
@@ -48,7 +48,6 @@ void reverse() {
 }
 
 int main() {
-	head = NULL;
 	for (int i = 0; i < LENGTH; i++) {
 		insert(i);
 	}
