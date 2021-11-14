@@ -4,7 +4,7 @@
 #include <string.h>
 #include <math.h>
 
-#define SIZE 50
+#define SIZE 100
 
 // list of words matching a sequence
 typedef struct word {
@@ -66,6 +66,22 @@ void insert(int key, char* value) {
 		addNewEntry(i, key, value);
 		return;
 	}
+}
+
+word* getWords(int key) {
+	for (int i = key % SIZE; i < SIZE; i++) {
+		if (Table.entries[i]->key == key) {
+			return Table.entries[i]->words;
+		}
+	}
+	// the other direction
+	for (int i = 0; i < key % SIZE; i++) {
+		if (Table.entries[i]->key == key) {
+			return Table.entries[i]->words;
+		}
+	}
+	// failed
+	return NULL;
 }
 
 void initTable() {
@@ -130,7 +146,12 @@ void addWord(char* word) {
 	insert(key, word);
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+	if (argc < 2) {
+		fprintf(stderr, "Usage: %s keys...", argv[0]);
+		exit(1);
+	}
+
 	initTable();
 
 	addWord("any");
@@ -177,6 +198,7 @@ int main() {
 	addWord("beg");
 	addWord("bel");
 	addWord("ben");
+	addWord("you");
 
 	addWord("water");
 	addWord("after");
@@ -211,5 +233,11 @@ int main() {
 	addWord("often");
 	addWord("earth");
 
-	printTable();
+//	printTable();
+
+	for (int i = 1; i < argc; i++) {
+		int key = atoi(argv[i]);
+		printf("Words for %d:\n", key);
+		printList(getWords(key));
+	}
 }
