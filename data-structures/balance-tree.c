@@ -104,6 +104,10 @@ void bstToArray(tree *t, int *array, int *index) {
 }
 
 void arrayToBst(int *array, tree **t, int length) {
+	printf("start: %d length: %d\n", array[0], length);
+	if (length < 1) {
+		return;
+	}
 	if (length == 1) {
 		insert(t, array[0], *t);
 		return;
@@ -158,6 +162,7 @@ int main() {
 	insert(&root, 24, root);
 	insert(&root, 16, root);
 	insert(&root, 17, root);
+	insert(&root, 7, root);
 	printf("left-hand depth: %d\n", depth(root->left));
 	printf("right-hand depth: %d\n", depth(root->right));
 	printTree(root, 4);
