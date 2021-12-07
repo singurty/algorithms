@@ -15,6 +15,9 @@ int pq_parent(int n) {
 }
 
 int pq_young_child(int n) {
+	if (n == 0) {
+		return 1;
+	}
 	return 2 * n;
 }
 
@@ -88,9 +91,19 @@ void make_heap(priority_queue *q, int s[], int n) {
 	}
 }
 
+void make_heap_fast(priority_queue *q, int s[], int n) {
+	q->n = n;
+	for (int i = 0; i < n; i++ ) {
+		q->q[i] = s[i];
+	}
+	for (int i = q->n/2; i >= 0; i--) {
+		bubble_down(q, i);
+	}
+}
+
 void heapsort_(int s[], int n) {
 	priority_queue q;
-	make_heap(&q, s, n);
+	make_heap_fast(&q, s, n);
 	for (int i = 0; i < n; i++) {
 		s[i] = extract_min(&q);
 	}
