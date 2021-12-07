@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define PQ_SIZE 20
+#define PQ_SIZE 100
 
 typedef struct {
 	int q[PQ_SIZE];
@@ -39,19 +39,8 @@ void pq_insert(priority_queue *q, int x) {
 		printf("Warning: priority queue overflow!\n");
 	} else {
 		q->q[q->n] = x;
-		q->n = (q->n) + 1;
-		bubble_up(q, q->n);
-	}
-}
-
-void pq_init(priority_queue *q) {
-	q->n = 0;
-}
-
-void make_heap(priority_queue *q, int s[], int n) {
-	pq_init(q);
-	for (int i = 0; i < n; i++) {
-		pq_insert(q, s[i]);
+		q->n++;
+		bubble_up(q, q->n - 1);
 	}
 }
 
@@ -86,4 +75,38 @@ int extract_min(priority_queue *q) {
 		bubble_down(q, 0);
 	}
 	return min;
+}
+
+void pq_init(priority_queue *q) {
+	q->n = 0;
+}
+
+void make_heap(priority_queue *q, int s[], int n) {
+	pq_init(q);
+	for (int i = 0; i < n; i++) {
+		pq_insert(q, s[i]);
+	}
+}
+
+void heapsort_(int s[], int n) {
+	priority_queue q;
+	make_heap(&q, s, n);
+	for (int i = 0; i < n; i++) {
+		s[i] = extract_min(&q);
+	}
+}
+
+void print_array(int s[], int n) {
+	for (int i = 0; i < n; i++) {
+		printf("%d ", s[i]);
+	}
+	printf("\n");
+}
+
+int main() {
+	int s[] = {4,3,62,3,2,3,1,6,7,34,76,2,6,24,43,65,78,61,86,23,63,81,37,97,15,19,37,13,55,89,54,21,92,19,76,21,46};
+	int n = sizeof(s) / sizeof(s[0]);
+	print_array(s, n);
+	heapsort_(s, n);
+	print_array(s, n);
 }
