@@ -116,10 +116,25 @@ void print_array(int s[], int n) {
 	printf("\n");
 }
 
+int heap_compare(priority_queue *q, int i, int count, int x) {
+	if ((count <= 0) || (i >= q->n)) {
+		return count;
+	}
+	if (q->q[i] < x) {
+		count = heap_compare(q, pq_young_child(i), count - 1, x);
+		count = heap_compare(q, pq_young_child(i) + 1, count, x);
+	}
+	return count;
+}
+
 int main() {
 	int s[] = {4,3,62,3,2,3,1,6,7,34,76,2,6,24,43,65,78,61,86,23,63,81,37,97,15,19,37,13,55,89,54,21,92,19,76,21,46};
 	int n = sizeof(s) / sizeof(s[0]);
-	print_array(s, n);
-	heapsort_(s, n);
-	print_array(s, n);
+	//print_array(s, n);
+	//heapsort_(s, n);
+	//print_array(s, n);
+	priority_queue q;
+	make_heap_fast(&q, s, n);
+	print_array(q.q, q.n);
+	printf("%d\n", heap_compare(&q, 0, 5, 4));
 }
