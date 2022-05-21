@@ -2,12 +2,26 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "sort.h"
+
+int *numbers;
+int length;
+
+void printNumbers() {
+	for (int i = 0; i < length; i++) {
+		printf("%d ", numbers[i]);
+		printf("\n");
+	}
+}
 
 int main() {
-	int length;
-	printf("How many numbers? ");
+	printf("How many numbers? (should be even) ");
 	scanf("%d", &length);
-	int *numbers = malloc(sizeof(int) * length);
+	if (length % 2 != 0) {
+		printf("Length should be divisible by two\n");
+		return 1;
+	}
+	numbers = malloc(sizeof(int) * length);
 	int *current = numbers;
 
 	for (int i = 0; i < length; i++) {
@@ -15,9 +29,6 @@ int main() {
 		scanf("%d", current);
 		current++;
 	}
-
-	for (int i = 0; i < length; i++) {
-		printf("%d ", numbers[i]);
-		printf("\n");
-	}
+	sort(numbers, length);
+	printNumbers();
 }

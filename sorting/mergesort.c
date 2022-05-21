@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/queue.h>
+#include "sort.h"
 
 #define BUF_SIZE 100
 
@@ -63,11 +64,4 @@ void print_array(int s[], int n) {
 		printf("%d ", s[i]);
 	}
 	printf("\n");
-}
-
-int main() {
-	int s[] = {4,3,62,3,2,3,1,6,7,34,76,2,6,24,43,65,78,61,86,23,63,81,37,97,15,19,37,13,55,89,54,21,92,19,76,21,46};
-	print_array(s, sizeof(s) / sizeof(int));
-	merge_sort(s, 0, sizeof(s) / sizeof(int) - 1);
-	print_array(s, sizeof(s) / sizeof(int));
 }
