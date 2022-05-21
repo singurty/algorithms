@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "sort.h"
 
-int *numbers;
+int* numbers;
 int length;
 
 void printNumbers() {
@@ -22,7 +22,7 @@ int main() {
 		return 1;
 	}
 	numbers = malloc(sizeof(int) * length);
-	int *current = numbers;
+	int* current = numbers;
 
 	for (int i = 0; i < length; i++) {
 		printf("Input number: ");
