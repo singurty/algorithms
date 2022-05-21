@@ -19,5 +19,3 @@ Exercise 4-3
 ((2,7),(8,9)) ((2,8),(7,9)) ((7,8),(2,9))
 2. Pair sums:
 (9,17) (10,16) (15,11)
-
-The pair including the maximum and minimum number will always be the lowest maximum because the 

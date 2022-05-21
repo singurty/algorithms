@@ -30,5 +30,6 @@ int main() {
 		current++;
 	}
 	sort(numbers, length);
-	printNumbers();
+
+	printf("The pairs we need are (%d,%d) and (%d,%d)\n", numbers[0], numbers[length - 1], numbers[(length / 2) - 1], numbers[length / 2]);
 }
