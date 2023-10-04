@@ -2,21 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAXV 1000
-
-typedef struct {
-    int y;                  // addgency info
-    int weight;             // edge weight
-    struct edgenode *next;
-} edgenode;
-
-typedef struct {
-    edgenode *edges[MAXV+1];
-    int degree[MAXV+1];
-    int nvertices;
-    int nedges;
-    bool directed;
-} graph;
+#include "graph.h"
 
 void initialize_graph(graph *g, bool directed)
 {
