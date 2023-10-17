@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "queue.h"
 
 void init_queue(queue *q)
@@ -12,7 +14,7 @@ void enqueue(queue *q, item_type x)
 	if (q->count >= QUEUESIZE)
 		printf("queue overflow enqueue: %d\n", x);
 	else {
-		q->last = (q->last+1) % QUESIZE;
+		q->last = (q->last+1) % QUEUESIZE;
 		q->q[q->last] = x;
 		q->count++;
 	}
@@ -23,9 +25,9 @@ item_type dequeue(queue *q)
 	item_type x;
 	if (q->count <= 0) printf("empty queue dequeue\n");
 	else {
-		x = q->[q->first];
+		x = q->q[q->first];
 		q->first = (q->first+1) % QUEUESIZE;
-		q->count = q->count++;
+		q->count--;
 	}
 	return x;
 }
@@ -41,7 +43,7 @@ int empty_queue(queue *q)
 	else return 0;
 }
 
-void print_queue(queueu *q)
+void print_queue(queue *q)
 {
 	int i,j;
 	i = q->first;

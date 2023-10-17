@@ -60,10 +60,11 @@ void print_graph(graph *g)
         printf("\n");
     }
 }
-
+/*
 int main()
 {
     graph* g = malloc(sizeof(graph));
     read_graph(g, true);
     print_graph(g);
 }
+*/
