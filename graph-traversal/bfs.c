@@ -13,7 +13,7 @@ void initialize_search(graph *g)
 {
 	int i;
 	
-	for (i=0; i<g->nvertices; i++) {
+	for (i=1; i<=g->nvertices; i++) {
 		processed[i] = discovered[i] = false;
 		parent[i] = -1;
 	}
@@ -21,17 +21,17 @@ void initialize_search(graph *g)
 
 void process_vertex_late(int v)
 {
-  printf("processed vertex late %d\n", v);
+//	printf("processed vertex late %d\n", v);
 }
 
 void process_vertex_early(int v)
 {
-  printf("processed vertex %d\n", v);
+	printf(" %d\n", v);
 }
 
 void process_edge(int x, int y)
 {
-  printf("processed edge (%d,%d)\n", x, y);
+//	printf("processed edge (%d,%d)\n", x, y);
 }
 
 void bfs(graph *g, int start)
@@ -65,8 +65,23 @@ void bfs(graph *g, int start)
 	}
 }
 
+void connected_components(graph *g)
+{
+	int c = 0;
+	initialize_search(g);
+
+	for (int i=1; i<=g->nvertices; i++) {
+		if (discovered[i] == false) {
+			c++;
+			printf("Component %d:", c);
+			bfs(g,i);
+			printf("\n");
+		}
+	}
+}
+
 int main() {
 	graph* g = malloc(sizeof(graph));
 	read_graph(g, true);
-	bfs(g, 1);
+	connected_components(g);
 }
