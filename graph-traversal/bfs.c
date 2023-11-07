@@ -5,9 +5,15 @@
 #include "graph.h"
 #include "../data-structures/queue.h"
 
+#define UNCOLORED 0
+#define BLACK 1
+#define WHITE 2
+
 bool processed[MAXV+1];
 bool discovered[MAXV+1];
 int parent[MAXV+1];
+int color[MAXV+1];
+bool bipartite;
 
 void initialize_search(graph *g)
 {
@@ -26,12 +32,15 @@ void process_vertex_late(int v)
 
 void process_vertex_early(int v)
 {
-	printf(" %d\n", v);
+//	printf(" %d\n", v);
 }
 
 void process_edge(int x, int y)
 {
-//	printf("processed edge (%d,%d)\n", x, y);
+	if (color[x] == color[y]) {
+		bipartite = false;
+		printf("Graph not bipartite due to edge (%d,%d)\n", x,y);
+	}
 }
 
 void bfs(graph *g, int start)
@@ -80,8 +89,31 @@ void connected_components(graph *g)
 	}
 }
 
+void twocolor(graph *g) {
+	for (int i=1; i<g->nvertices; i++) {
+		color[i] = UNCOLORED;
+	}
+	bipartite = true;
+	initialize_search(g);
+	for (int i=1; i<g->nvertices; i++) {
+		if (discovered[i] == false) {
+			color[i] = WHITE;
+			bfs(g,i);
+		}
+	}
+}
+
+void printcolor(graph *g) {
+	for (int i=1; i<=g->nvertices; i++) {
+		printf("color of vertex %d: %d\n", i, color[i]);
+	}
+}
+
 int main() {
 	graph* g = malloc(sizeof(graph));
 	read_graph(g, true);
-	connected_components(g);
+//	connected_components(g);
+	twocolor(g);
+//	if (bipartite)
+		printcolor(g);
 }
