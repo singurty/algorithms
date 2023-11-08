@@ -22,6 +22,15 @@ void initialize_search(graph *g)
 	time = 0;
 }
 
+void find_path(int start, int end, int parents[]) {
+	if (start == end || end == -1) {
+		printf("\n%d", start);
+	} else {
+		find_path(start, parents[end], parents);
+		printf(" %d", end);
+	}
+}
+
 void process_vertex_early(int v) {
 
 }
@@ -30,7 +39,11 @@ void process_vertex_late(int v) {
 }
 
 void process_edge(int v, int y) {
-	printf("processed edge (%d,%d)\n", v, y);
+	if (parent[v] != y) {	// found back edge
+		printf("Cycle from %d to %d\n", y, v);
+		find_path(y, v, parent);
+		printf("\n\n");
+	}
 }
 
 void bfs(graph *g, int start)
@@ -112,5 +125,6 @@ void connected_components(graph *g)
 int main() {
 	graph* g = malloc(sizeof(graph));
 	read_graph(g, true);
+	initialize_search(g);
 	dfs(g, 1);
 }
