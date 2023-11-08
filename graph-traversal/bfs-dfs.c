@@ -8,14 +8,29 @@ bool processed[MAXV+1];
 bool discovered[MAXV+1];
 int parent[MAXV+1];
 
+int entry_time[MAXV+1];
+int exit_time[MAXV+1];
+int time;
+bool finished = false;
+
 void initialize_search(graph *g)
 {
-	int i;
-	
-	for (i=1; i<=g->nvertices; i++) {
+	for (int i=1; i<=g->nvertices; i++) {
 		processed[i] = discovered[i] = false;
 		parent[i] = -1;
 	}
+	time = 0;
+}
+
+void process_vertex_early(int v) {
+
+}
+void process_vertex_late(int v) {
+
+}
+
+void process_edge(int v, int y) {
+	printf("processed edge (%d,%d)\n", v, y);
 }
 
 void bfs(graph *g, int start)
@@ -49,6 +64,36 @@ void bfs(graph *g, int start)
 	}
 }
 
+void dfs(graph *g, int v) {
+	edgenode *p; 		// temporary pointer
+	int y;				// successor vertex
+	if (finished) return;
+
+	discovered[v] = true;
+	time++;
+	entry_time[v] = time;
+
+	process_vertex_early(v);
+
+	p = g->edges[v];
+	while (p != NULL) {
+		y = p->y;
+		if (discovered[y] == false) {
+			parent[y] = v;
+			process_edge(v, y);
+			dfs(g, y);
+		}
+		else if ((!processed[y]) || (g->directed))
+			process_edge(v,y);
+		if (finished) return;
+		p = p->next;
+	}
+	process_vertex_late(v);
+	time++;
+	exit_time[v] = time;
+	processed[v] = true;
+}
+
 void connected_components(graph *g)
 {
 	int c = 0;
@@ -62,4 +107,10 @@ void connected_components(graph *g)
 			printf("\n");
 		}
 	}
+}
+
+int main() {
+	graph* g = malloc(sizeof(graph));
+	read_graph(g, true);
+	dfs(g, 1);
 }
