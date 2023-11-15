@@ -11,16 +11,6 @@ extern int entry_time[];
 int reachable_ancestor[MAXV+1];
 int tree_out_degree[MAXV+1];
 
-int edge_classification(int v, int y)
-{
-    if (parent[y] == v) return TREE;
-    if (discovered[y] && !processed[y]) return BACK;
-    if (processed[y] && (entry_time[y] > entry_time[v])) return FORWARD;
-    if (processed[y] && (entry_time[y] < entry_time[v])) return CROSS;
-
-    printf("WARNING: Unclassified edge: (%d,%d)\n", v,y);
-}
-
 void process_vertex_early(int v)
 {
     reachable_ancestor[v] = v;

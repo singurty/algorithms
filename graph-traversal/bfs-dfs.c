@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "bfs-dfs.h"
+#include "../data-structures/queue.h"
 
 bool processed[MAXV+1];
 bool discovered[MAXV+1];
@@ -122,9 +123,20 @@ void connected_components(graph *g)
 	}
 }
 
+int edge_classification(int v, int y)
+{
+    if (parent[y] == v) return TREE;
+    if (discovered[y] && !processed[y]) return BACK;
+    if (processed[y] && (entry_time[y] > entry_time[v])) return FORWARD;
+    if (processed[y] && (entry_time[y] < entry_time[v])) return CROSS;
+
+    printf("WARNING: Unclassified edge: (%d,%d)\n", v,y);
+}
+/*
 int main() {
 	graph* g = malloc(sizeof(graph));
 	read_graph(g, true);
 	initialize_search(g);
 	dfs(g, 1);
 }
+*/
