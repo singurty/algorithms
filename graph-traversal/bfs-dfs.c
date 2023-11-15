@@ -31,20 +31,20 @@ void find_path(int start, int end, int parents[]) {
 	}
 }
 
-void process_vertex_early(int v) {
+//void process_vertex_early(int v) {
+//
+//}
+//void process_vertex_late(int v) {
+//
+//}
 
-}
-void process_vertex_late(int v) {
-
-}
-
-void process_edge(int v, int y) {
-	if (parent[v] != y) {	// found back edge
-		printf("Cycle from %d to %d\n", y, v);
-		find_path(y, v, parent);
-		printf("\n\n");
-	}
-}
+//void process_edge(int v, int y) {
+//	if (parent[v] != y) {	// found back edge
+//		printf("Cycle from %d to %d\n", y, v);
+//		find_path(y, v, parent);
+//		printf("\n\n");
+//	}
+//}
 
 void bfs(graph *g, int start)
 {
