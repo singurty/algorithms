@@ -29,6 +29,7 @@ void topsort(graph *g)
 {
     init_stack(&sorted);
     for (int i=1; i <= g->nvertices; i++) {
+        printf("topsort: checking vertex %d\n", i);
         if (discovered[i] == false) {
             dfs(g, i);
         }
